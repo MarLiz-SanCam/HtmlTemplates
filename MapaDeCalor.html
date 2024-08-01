@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demanda de Oficios por Localidad</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.0.2/dist/echarts.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #header {
+            text-align: center;
+            padding: 20px;
+        }
+        #heatmap {
+            width: 100%;
+            height: 600px;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>Demanda de Oficios por Localidad</h1>
+        <p>Obtén inteligencia de negocios sobre las tendencias de la demanda laboral en diferentes localidades.</p>
+    </div>
+    <div id="heatmap"></div>
+    <footer>
+        <p>&copy; 2024 Atractor RED</p>
+    </footer>
+    <script>
+        var chartDom = document.getElementById('heatmap');
+        var myChart = echarts.init(chartDom);
+        var option;
+
+        option = {
+            title: {
+                text: 'Mapa de Calor de la Demanda de Oficios por Localidad',
+                left: 'center'
+            },
+            tooltip: {
+                position: 'top'
+            },
+            grid: {
+                height: '50%',
+                top: '10%'
+            },
+            xAxis: {
+                type: 'category',
+                data: ['Loc 1', 'Loc 2', 'Loc 3', 'Loc 4', 'Loc 5', 'Loc 6', 'Loc 7', 'Loc 8', 'Loc 9', 'Loc 10'],
+                splitArea: {
+                    show: true
+                }
+            },
+            yAxis: {
+                type: 'category',
+                data: ['Of 1', 'Of 2', 'Of 3', 'Of 4', 'Of 5', 'Of 6', 'Of 7', 'Of 8', 'Of 9', 'Of 10'],
+                splitArea: {
+                    show: true
+                }
+            },
+            visualMap: {
+                min: 0,
+                max: 1,
+                calculable: true,
+                orient: 'horizontal',
+                left: 'center',
+                bottom: '15%'
+            },
+            series: [{
+                name: 'Demanda',
+                type: 'heatmap',
+                data: [
+                    [0, 0, 0.1], [0, 1, 0.2], [0, 2, 0.3], [0, 3, 0.4], [0, 4, 0.5], [0, 5, 0.6], [0, 6, 0.7], [0, 7, 0.8], [0, 8, 0.9], [0, 9, 1.0],
+                    [1, 0, 0.1], [1, 1, 0.2], [1, 2, 0.3], [1, 3, 0.4], [1, 4, 0.5], [1, 5, 0.6], [1, 6, 0.7], [1, 7, 0.8], [1, 8, 0.9], [1, 9, 1.0],
+                    [2, 0, 0.1], [2, 1, 0.2], [2, 2, 0.3], [2, 3, 0.4], [2, 4, 0.5], [2, 5, 0.6], [2, 6, 0.7], [2, 7, 0.8], [2, 8, 0.9], [2, 9, 1.0],
+                    [3, 0, 0.1], [3, 1, 0.2], [3, 2, 0.3], [3, 3, 0.4], [3, 4, 0.5], [3, 5, 0.6], [3, 6, 0.7], [3, 7, 0.8], [3, 8, 0.9], [3, 9, 1.0],
+                    [4, 0, 0.1], [4, 1, 0.2], [4, 2, 0.3], [4, 3, 0.4], [4, 4, 0.5], [4, 5, 0.6], [4, 6, 0.7], [4, 7, 0.8], [4, 8, 0.9], [4, 9, 1.0],
+                    [5, 0, 0.1], [5, 1, 0.2], [5, 2, 0.3], [5, 3, 0.4], [5, 4, 0.5], [5, 5, 0.6], [5, 6, 0.7], [5, 7, 0.8], [5, 8, 0.9], [5, 9, 1.0],
+                    [6, 0, 0.1], [6, 1, 0.2], [6, 2, 0.3], [6, 3, 0.4], [6, 4, 0.5], [6, 5, 0.6], [6, 6, 0.7], [6, 7, 0.8], [6, 8, 0.9], [6, 9, 1.0],
+                    [7, 0, 0.1], [7, 1, 0.2], [7, 2, 0.3], [7, 3, 0.4], [7, 4, 0.5], [7, 5, 0.6], [7, 6, 0.7], [7, 7, 0.8], [7, 8, 0.9], [7, 9, 1.0],
+                    [8, 0, 0.1], [8, 1, 0.2], [8, 2, 0.3], [8, 3, 0.4], [8, 4, 0.5], [8, 5, 0.6], [8, 6, 0.7], [8, 7, 0.8], [8, 8, 0.9], [8, 9, 1.0],
+                    [9, 0, 0.1], [9, 1, 0.2], [9, 2, 0.3], [9, 3, 0.4], [9, 4, 0.5], [9, 5, 0.6], [9, 6, 0.7], [9, 7, 0.8], [9, 8, 0.9], [9, 9, 1.0]
+                ],
+                label: {
+                    show: true
+                },
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }]
+        };
+
+        myChart.setOption(option);
+    </script>
+</body>
+</html>

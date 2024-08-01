@@ -1,0 +1,148 @@
+
+<html>
+    <canvas id="gameCanvas" width="800"
+    height="600"></canvas>
+    <script>
+        var canvas;
+        var canvasContext;
+        var ballX= 50;
+        var ballSX= 10;
+        var ballY=50;
+        var ballSY= 4;
+
+        var puntaje1=0;
+        var puntaje2=0;
+        const Ganar= 3;
+
+        var pantalla=false;
+
+        var jugador1=250;
+        var jugador2 = 250;
+        const jugador1_height= 100;
+        const jugador2_height = 10;
+
+        function calculateMouse(evt){
+            var rect=canvas.getBoundingClientRect();
+            var root=document.documentElement;
+            var mouseX = evt.clientX - rect.left - root.scrollLeft;
+            var mouseY = evt.clientY - rect.top - root.scrollTop;
+            return{
+                x:mouseX,
+                y:mouseY
+            };
+
+        }
+        function handleMouseClick(evt){
+            if (pantalla){
+                puntaje1=0;
+                puntaje2=0;
+                pantalla=false;
+            }
+        }
+        window.onload = function (){
+            canvas = document.getElementById("gameCanvas");
+            canvasContext = canvas.getContext("2d");
+
+            var framesPerSecond=30
+            setInterval(function(){
+                MoveEverything();
+                drawEverything();
+            },1000/framesPerSecond);
+            canvas.addEventListener("mousedown",handleMouseClick); 
+            canvas.addEventListener("mousemove",function(evt){
+                var mousePos=calculateMouse(evt);
+                jugador1=mousePos.y-(jugador1_height/2);
+            });
+        }
+        function ballreset(){
+            if (puntaje1 >= Ganar || puntaje2 >= Ganar){
+                pantalla=true;
+            }
+            ballSX = -ballSX;
+            ballX=canvas.width/2;
+            ballY=canvas.height/2;
+        }
+        function computerMove(){
+            var jugador2Center = jugador2+(jugador1_height/2);
+            if (jugador2Center<ballY-35){
+                jugador2 +=6;
+            } else if(jugador2Center>ballY+35){
+                jugador2 -=6;
+            }
+        }
+        function MoveEverything(){
+            computerMove();
+            ballX+=ballSX;
+            ballY+=ballSY;
+            if(ballX<0){
+                if(ballY>jugador1 && ballY<jugador1_height+jugador1){
+                    ballSX=-ballSX;
+
+                    var deltaY= ballY-(jugador1+jugador1_height/2);
+                    ballSY=deltaY*0.35;
+
+                } else {
+                    puntaje2++;
+                    ballreset();
+                     
+                }
+            }
+             if (ballX >= canvas.width) {
+                if (ballY>jugador2 && ballY<jugador2+jugador1_height){
+                    ballSX=-ballSX;
+
+                    var deltaY = ballY - (jugador2 + jugador1_height / 2);
+                    ballSY = deltaY * 0.35;
+                } else {
+                    puntaje1++;
+                    ballreset();
+                    
+                }
+                }
+            if (ballY<0){
+                ballSY=-ballSY;
+            }    
+            if (ballY>=canvas.height){
+                ballSY=-ballSY;
+            }
+        }
+        function drawNet(){
+            for(var i=0;i<canvas.height;i+=40){
+                colorRect(canvas.width/2-1,i,2,20,"white");
+            }
+        }
+        function drawEverything(){
+            // Fondo del juego 
+            colorRect(0, 0, canvas.width, canvas.height,"black");
+             if (pantalla) {
+                canvasContext.fillStyle = "white";
+                if (puntaje1 >= Ganar) {
+                    canvasContext.fillText("Gana el jugador de la Izquierda!", 340, 200);
+                } else if (puntaje2 >= Ganar) {
+                    canvasContext.fillText("Gana el jugador de la Derecha!", 340, 200);
+                }
+                canvasContext.fillText("Haz click para continuar", 350, 500);
+                return;
+            }
+            //Jugador del lado izquierdo
+            colorRect(0, jugador1, jugador2_height, jugador1_height,"white");
+             //Jugador del lado derecho
+            colorRect(canvas.width-jugador2_height,jugador2, jugador2_height, jugador1_height, "white");
+            //Pelota 
+            colorcicle(ballX,ballY,10,"white");
+
+            canvasContext.fillText(puntaje1,100,100);
+            canvasContext.fillText(puntaje2, canvas.width-100,100)
+        }
+        function colorcicle(centerX,centerY,radius,drawColor){
+            canvasContext.fillStyle=drawColor;
+            canvasContext.beginPath();
+            canvasContext.arc(centerX,centerY,radius,0,Math.PI*2,true);
+            canvasContext.fill();
+        }
+        function colorRect(leftX,topY,width,height,drawColor){
+            canvasContext.fillStyle=drawColor;
+            canvasContext.fillRect(leftX,topY,width,height);
+        }
+    </script>
+</html>

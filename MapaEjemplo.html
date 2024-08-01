@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Calor de Demanda por Profesión</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #heatmap {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .menu {
+            text-align: center;
+            margin: 20px 0;
+        }
+        select {
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <label for="profession">Seleccione una Profesión:</label>
+        <select id="profession" onchange="updateHeatmap()">
+            <option value="Maestros">Maestros</option>
+            <option value="Ayudantes de Ventas">Ayudantes de Ventas</option>
+            <option value="Enfermeros">Enfermeros</option>
+            <option value="Ingenieros">Ingenieros</option>
+        </select>
+    </div>
+    <div id="heatmap"></div>
+    <script src="script.js"></script>
+</body>
+</html>

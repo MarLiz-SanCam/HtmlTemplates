@@ -1,0 +1,28 @@
+<div id="heatmap" style="width: 100%; height: 400px;"></div>
+<script>
+    var heatmap = echarts.init(document.getElementById('heatmap'));
+    var option = {
+        title: {
+            text: 'Concentración de Demanda por Región'
+        },
+        tooltip: {},
+        visualMap: {
+            min: 0,
+            max: 100,
+            left: 'left',
+            top: 'bottom',
+            text: ['Alta Demanda','Baja Demanda'],
+            calculable: true
+        },
+        series: [{
+            type: 'heatmap',
+            data: [
+                // Datos de ejemplo: [longitud, latitud, valor]
+                [120.13066322374, 30.240018034923, 10],
+                [120.16066322374, 30.240018034923, 20],
+                // Agrega más datos aquí
+            ]
+        }]
+    };
+    heatmap.setOption(option);
+</script>

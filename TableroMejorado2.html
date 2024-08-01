@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tablero de Estadísticas de Demanda de Oficios</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #e0f7fa;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .menu {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        select, button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 5px;
+        }
+        .chart-row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .chart-container {
+            width: 45%;
+            height: 400px;
+            margin-bottom: 30px;
+        }
+        .notes {
+            background-color: #b3e5fc;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #0277bd;
+            width: 45%;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="menu">
+            <div>
+                <label for="profession">Seleccione una Profesión:</label>
+                <select id="profession" onchange="updateCharts()">
+                    <option value="Meseros">Meseros</option>
+                    <option value="Cajeros">Cajeros</option>
+                    <option value="Cocineros">Cocineros</option>
+                    <option value="Servicio de Limpieza">Servicio de Limpieza</option>
+                    <option value="Anaquelistas">Anaquelistas</option>
+                    <option value="Guardias de Seguridad">Guardias de Seguridad</option>
+                </select>
+            </div>
+            <div>
+                <label for="locality">Seleccione una Delegación:</label>
+                <select id="locality" onchange="updateCharts()">
+                    <option value="Álvaro Obregón">Álvaro Obregón</option>
+                    <option value="Azcapotzalco">Azcapotzalco</option>
+                    <option value="Benito Juárez">Benito Juárez</option>
+                    <option value="Coyoacán">Coyoacán</option>
+                    <option value="Cuajimalpa">Cuajimalpa</option>
+                    <option value="Cuauhtémoc">Cuauhtémoc</option>
+                    <option value="Gustavo A. Madero">Gustavo A. Madero</option>
+                    <option value="Iztacalco">Iztacalco</option>
+                    <option value="Iztapalapa">Iztapalapa</option>
+                    <option value="Magdalena Contreras">Magdalena Contreras</option>
+                    <option value="Miguel Hidalgo">Miguel Hidalgo</option>
+                    <option value="Milpa Alta">Milpa Alta</option>
+                    <option value="Tláhuac">Tláhuac</option>
+                    <option value="Tlalpan">Tlalpan</option>
+                    <option value="Venustiano Carranza">Venustiano Carranza</option>
+                    <option value="Xochimilco">Xochimilco</option>
+                </select>
+            </div>
+        </div>
+        <div class="chart-row">
+            <div id="barChart" class="chart-container"></div>
+            <div id="lineChart" class="chart-container"></div>
+        </div>
+        <div class="chart-row">
+            <div id="pieChart" class="chart-container"></div>
+            <div id="scatterChart" class="chart-container"></div>
+        </div>
+        <div class="chart-row">
+            <div id="bubbleChart" class="chart-container"></div>
+            <div class="notes" id="notes"></div>
+        </div>
+    </div>
+    <script src="scriptTM2.js"></script>
+</body>
+</html>
